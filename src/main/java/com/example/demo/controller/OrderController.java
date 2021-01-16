@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +22,7 @@ public class OrderController {
 
 	@GetMapping
 	public List<Order> getOrders() {
-		return orderDao.getOrder();
+		return orderDao.getOrder().stream().sorted(Comparator.comparing(Order::getPrice)).collect(Collectors.toList());
 	}
 
 }
